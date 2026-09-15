@@ -1,0 +1,12 @@
+schema: "classroom50/repo-config/v1"
+classroom: "cse303"
+assignment: "p1"
+owner:
+  username: "SamTsui140"
+  id: 157832707
+  accepted_at: "2026-09-14T15:27:20Z"
+source:
+  owner: "LU-CSE303"
+  owner_id: 179320229
+  repo: "pa-1-fall-2026"
+  branch: "main"
