@@ -1,0 +1,49 @@
+callisto.cse.lehigh.edu:~/CSE303/salmonella% python3 scripts/p1.py 
+------------------------------------------------------------------------------------
+Getting ready to run tests
+------------------------------------------------------------------------------------
+Cleaning up temp files                                                          [OK]
+Stopping any errant processes                                                   [OK]
+
+------------------------------------------------------------------------------------
+Test #1: Registering users, putting content, and persisting
+------------------------------------------------------------------------------------
+Starting server:
+  Expect 'Listening on port 9999'                                               [OK]
+  Expect 'File not found: company.dir'                                          [OK]
+Registering new user alice. Expect: 'OK__'                                      [OK]
+Setting alice's content. Expect: 'OK__'                                         [OK]
+Checking alice's content. Expect: 'OK__'                                        [OK]
+  Comparing server/responses.h and alice.file.dat.                              [ERR] Cannot find alice.file.dat
+Getting all users to make sure it's just alice. Expect: 'OK__'                  [OK]
+Checking allfile.                                                               [ERR] Files do not have correct contents
+file:
+list:
+alice
+Instructing server to persist data. Expect: 'OK__'                              [OK]
+Stopping server. Expect: 'OK__'                                                 [OK]
+Waiting for server to shut down. Expect: 'Server terminated'                    [OK]
+
+------------------------------------------------------------------------------------
+Test #2: Make sure persistence works, test other features
+------------------------------------------------------------------------------------
+Restarting server:
+  Expect 'Listening on port 9999'                                               [OK]
+  Expect 'Loaded: company.dir'                                                  [OK]
+Re-registering alice. Expect: 'ERR_USER_EXISTS'                                 [OK]
+Checking alice's old content. Expect: 'OK__'                                    [OK]
+  Comparing server/responses.h and alice.file.dat.                              [ERR] Files do not match
+Attempting access with bad password. Expect: 'ERR_LOGIN'                        [OK]
+Attempting access with bad user. Expect: 'ERR_LOGIN'                            [OK]
+Registering user bob. Expect: 'OK__'                                            [OK]
+Attempting to access alice's data by bob. Expect: 'OK__'                        [OK]
+  Comparing server/responses.h and alice.file.dat.                              [ERR] Cannot find alice.file.dat
+Getting bob's nonexistent data. Expect: 'ERR_NO_DATA'                           [OK]
+Getting all users to make sure it's alice and bob. Expect: 'OK__'               [OK]
+Traceback (most recent call last):
+  File "/home/elr427/CSE303/salmonella/scripts/p1.py", line 65, in <module>
+    cse303.check_file_list(allfile, [bob.name, alice.name])
+  File "/home/elr427/CSE303/salmonella/scripts/cse303.py", line 316, in check_file_list
+    f = open(file)
+FileNotFoundError: [Errno 2] No such file or directory: 'allfile'
+callisto.cse.lehigh.edu:~/CSE303/salmonella% 
